@@ -3,7 +3,7 @@ import FilmNavigation from "@/components/FilmNavigation";
 import Image from "next/image";
 
 async function getFilms(id = 1) {
-  const response = await fetch("http://localhost:3000/api/film?page=" + id, {
+  const response = await fetch("https://fx.vercel.app/api/film?page=" + id, {
     cache: "no-cache",
   });
   const data = await response.json();

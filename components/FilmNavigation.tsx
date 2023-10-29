@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import {usePathname, useSelectedLayoutSegment} from "next/navigation";
-import {useState} from "react";
+import {usePathname} from "next/navigation";
 
 export default function FilmNavigation({pages}: {pages: any[]}) {
   const path = usePathname();
@@ -11,7 +10,9 @@ export default function FilmNavigation({pages}: {pages: any[]}) {
         return (
           <>
             {Number(path.split("/").pop()) > 1 && i == pages.length - 1 && (
-              <span className="bg-gray-900 py-2 px-4 rounded-lg">...</span>
+              <span key={i} className="bg-gray-900 py-2 px-4 rounded-lg">
+                ...
+              </span>
             )}
             <Link
               key={i}
@@ -25,7 +26,9 @@ export default function FilmNavigation({pages}: {pages: any[]}) {
               {el.text}
             </Link>
             {Number(path.split("/").pop()) > 1 && i == 0 && (
-              <span className="bg-gray-900 py-2 px-4 rounded-lg">...</span>
+              <span key={i} className="bg-gray-900 py-2 px-4 rounded-lg">
+                ...
+              </span>
             )}
           </>
         );

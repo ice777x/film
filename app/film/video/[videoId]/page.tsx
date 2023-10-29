@@ -8,7 +8,7 @@ export default function Home({params}: {params: {videoId: string}}) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/film/video?id=" + params.videoId,
+        "https://fx.vercel.app/api/film/video?id=" + params.videoId,
         {
           cache: "no-cache",
         }
@@ -54,9 +54,9 @@ export default function Home({params}: {params: {videoId: string}}) {
                 {data.detail.desc}
               </p>
               <div className="space-y-1">
-                {data.detail.info.map((item: any) => {
+                {data.detail.info.map((item: any, i: number) => {
                   return (
-                    <div className="flex gap-2">
+                    <div key={i} className="flex gap-2">
                       <p className="text-gray-400 font-medium">{item.title}</p>
                       <p className="text-gray-200">{item.values.join(",")}</p>
                     </div>
