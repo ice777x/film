@@ -13,7 +13,7 @@ export default function Card({title, image, url, year}: CardProps) {
   return (
     <div className="shadow flex group flex-col gap-1 text-center">
       <Link
-        href={`/film/video/${id}`}
+        href={`/film/video?id=${id}`}
         rel="noopener noreferrer"
         className="flex-grow"
       >

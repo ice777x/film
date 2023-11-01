@@ -14,7 +14,10 @@ export default function TypeCard({type}: {type: string}) {
     async function fetchData() {
       setLoading(true);
       const res = await fetch(
-        `https://fx.vercel.app/api/film?type=${type}&page=${page}`
+        `https://fx.vercel.app/api/film?type=${type}&page=${page}`,
+        {
+          cache: "no-cache",
+        }
       );
       const data = await res.json();
       setData(data);
@@ -36,7 +39,7 @@ export default function TypeCard({type}: {type: string}) {
                 className="shadow flex group flex-col gap-1 text-center"
               >
                 <Link
-                  href={`/film/video/${id}`}
+                  href={`/film/video?id=${id}`}
                   rel="noopener noreferrer"
                   className="flex-grow"
                 >

@@ -16,7 +16,9 @@ async function getSource(url: string) {
 }
 async function getVideo(id: string) {
   try {
-    const response = await fetch(`https://hdfilmcehennemi.cx/${id}`);
+    const response = await fetch(`https://hdfilmcehennemi.cx/${id}`, {
+      cache: "force-cache",
+    });
     const res = await response.text();
     const $ = cheerio.load(res);
     const current = $(".sources")
