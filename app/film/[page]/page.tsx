@@ -12,15 +12,14 @@ async function getFilms(id = 1) {
 }
 
 export default async function Home({params}: {params: {page: string}}) {
-  const films = await getFilms(Number(params.page));
+  const data = await getFilms(Number(params.page));
   return (
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {films.films.map((film: FilmProps, i: number) => {
+        {data.data.map((film: FilmProps, i: number) => {
           return (
             <section key={i} className="">
               <Card
-                // key={i}
                 title={film.title}
                 image={film.img}
                 url={film.link}
@@ -31,7 +30,7 @@ export default async function Home({params}: {params: {page: string}}) {
         })}
       </div>
       <div className="py-4">
-        <FilmNavigation pages={films.nav} />
+        <FilmNavigation pages={data.nav} />
       </div>
     </div>
   );

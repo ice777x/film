@@ -4,31 +4,38 @@ import cheerio, {CheerioAPI} from "cheerio";
 
 async function getSource(url: string) {
   const response = await fetch(url);
-  const data = await response.text();
-  const s = data.split("var configs = {")[1].split(";")[0];
-  const rex = /file: "(?<id>.*?)"/g;
-  const m = rex.exec(s);
-  return m?.groups?.id;
+  if (response.status == 404) {
+    return null;
+  } else {
+    const data = await response.text();
+    const s = data.split("var configs = {")[1].split(";")[0];
+    const rex = /file: "(?<id>.*?)"/g;
+    const m = rex.exec(s);
+    return m?.groups?.id;
+  }
 }
 async function getVideo(id: string) {
   try {
     const response = await fetch(`https://hdfilmcehennemi.cx/${id}`);
     const res = await response.text();
     const $ = cheerio.load(res);
-    const sources = $(".sources")
-      .find("a,span")
+    const current = $(".sources")
+      .find("span.current_dil")
+      .text()
+      .trim() as string;
+    const sources: any[] = $(".sources")
+      .find("a")
       .map((i, el) => {
-        return {
-          url: $(el).attr("href"),
-          title: $(el).text(),
-        };
+        return {url: $(el).attr("href"), lang: $(el).text().trim()};
       })
-      .toArray();
+      .toArray()
+      .concat({url: `https://hdfilmcehennemi.cx/${id}`, lang: current});
     const iframe = $("iframe").attr("src");
     const video = await getSource(iframe as string);
     const detail = await getVideoDetails($);
     return {video, sources, detail};
   } catch (e) {
+    console.log(e);
     return [];
   }
 }

@@ -17,7 +17,6 @@ export default function TypeCard({type}: {type: string}) {
         `https://fx.vercel.app/api/film?type=${type}&page=${page}`
       );
       const data = await res.json();
-      console.log(data);
       setData(data);
       setLoading(false);
     }
@@ -43,6 +42,7 @@ export default function TypeCard({type}: {type: string}) {
                 >
                   <div className="overflow-hidden rounded-lg mb-1">
                     <Image
+                      priority
                       src={item.img}
                       alt={item.title}
                       width={640}
